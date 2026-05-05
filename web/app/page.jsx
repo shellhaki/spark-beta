@@ -158,19 +158,19 @@ export default function Home() {
 				)}
 			</header>
 
-			<section className="mx-auto grid max-w-7xl gap-12 px-5 pb-10 pt-14 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:px-10 lg:pb-16 lg:pt-20">
+			<section className="mx-auto grid max-w-7xl gap-12 px-4 pb-6 pt-8 sm:px-8 sm:pb-10 sm:pt-14 lg:grid-cols-[.9fr_1.1fr] lg:px-10 lg:pb-16 lg:pt-20">
 				<div className="flex flex-col justify-center">
-					<div className="mb-7 inline-flex w-fit items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-[var(--violet)] backdrop-blur-xl">
+					<div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-[var(--violet)] backdrop-blur-xl sm:mb-7">
 						<Zap className="h-4 w-4" />
 						Beta programme
 					</div>
-					<h1 className="max-w-3xl text-balance text-5xl font-black leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
+					<h1 className="max-w-3xl text-balance text-[2.65rem] font-black leading-[0.98] tracking-[-0.055em] sm:text-6xl lg:text-7xl">
 						Help shape the future of <span className="text-[var(--violet)]">instant databases</span>
 					</h1>
-					<p className="mt-7 max-w-xl text-lg leading-8 text-[var(--muted)]">
+					<p className="mt-5 max-w-xl text-base leading-7 text-[var(--muted)] sm:mt-7 sm:text-lg sm:leading-8">
 						SparkDB gives you isolated databases in seconds, with less infrastructure work and more shipping energy.
 					</p>
-					<div className="mt-9 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3">
+					<div className="mt-6 grid max-w-xl grid-cols-1 gap-3 sm:mt-9 sm:grid-cols-3">
 						<Mini icon={Zap} label="Instant" />
 						<Mini icon={Shield} label="Isolated" />
 						<Mini icon={Code2} label="Just code" />
@@ -179,15 +179,15 @@ export default function Home() {
 				<HeroVisual />
 			</section>
 
-			<section id="apply" className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-				<div className="glass grid gap-7 rounded-2xl p-5 sm:p-7 lg:grid-cols-[1.3fr_.8fr] lg:p-8">
-					<form onSubmit={submit} className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 backdrop-blur-xl sm:p-7">
+			<section id="apply" className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-10">
+				<div className="glass grid gap-5 rounded-2xl p-3 sm:gap-7 sm:p-7 lg:grid-cols-[1.3fr_.8fr] lg:p-8">
+					<form onSubmit={submit} className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-4 backdrop-blur-xl sm:rounded-2xl sm:p-7">
 						<div className="mb-7 flex items-center gap-4">
 							<span className="grid h-[52px] w-[52px] place-items-center rounded-xl bg-[var(--wash)] text-[var(--violet)] ring-1 ring-[var(--line)]">
 								<Users className="h-7 w-7" />
 							</span>
 							<div>
-								<h2 className="text-2xl font-black tracking-[-0.03em]">Apply for SparkDB Beta</h2>
+								<h2 className="text-xl font-black tracking-[-0.03em] sm:text-2xl">Apply for SparkDB Beta</h2>
 								<p className="mt-1 text-sm text-[var(--muted)]">Be one of {slots.total} developers to get early access.</p>
 							</div>
 						</div>
@@ -230,13 +230,13 @@ export default function Home() {
 			</section>
 
 			<section id="benefits" className="mx-auto grid max-w-7xl gap-5 px-5 py-10 sm:px-8 lg:grid-cols-2 lg:px-10">
-				<div className="glass rounded-2xl p-7 sm:p-8">
+				<div className="glass rounded-2xl p-5 sm:p-8">
 					<h2 className="text-2xl font-black tracking-[-0.03em]">Benefits of the <span className="text-[var(--violet)]">@sparkdb_space</span> beta</h2>
 					<div className="mt-8 space-y-6">
 						{benefits.map((item) => <Benefit key={item.title} {...item} />)}
 					</div>
 				</div>
-				<div id="rules" className="glass rounded-2xl p-7 sm:p-8">
+				<div id="rules" className="glass rounded-2xl p-5 sm:p-8">
 					<div className="mb-7 flex items-center gap-4">
 						<span className="grid h-12 w-12 place-items-center rounded-xl bg-[var(--wash)] text-[var(--violet)] ring-1 ring-[var(--line)]">
 							<Shield className="h-6 w-6" />
@@ -256,7 +256,7 @@ export default function Home() {
 			</section>
 
 			<section id="faq" className="mx-auto max-w-7xl px-5 pb-8 sm:px-8 lg:px-10">
-				<div className="glass rounded-2xl p-7 sm:p-8">
+				<div className="glass rounded-2xl p-5 sm:p-8">
 					<div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
 						<div>
 							<p className="text-sm font-black uppercase tracking-[0.14em] text-[var(--violet)]">FAQ</p>
@@ -323,7 +323,7 @@ function Field({ label, icon: Icon, children }) {
 
 function SlotPanel({ slots }) {
 	return (
-		<div className="rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 backdrop-blur-xl sm:p-8">
+		<div className="hidden rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6 backdrop-blur-xl sm:p-8 lg:block">
 			<div className="grid h-20 w-20 place-items-center rounded-2xl bg-[var(--surface-strong)] text-[var(--violet)] shadow-xl shadow-violet-950/10 ring-1 ring-[var(--line)]">
 				<Target className="h-10 w-10" />
 			</div>
@@ -392,7 +392,7 @@ function HeroVisual() {
 		["prod_db", "Mongodb", "Active"]
 	];
 	return (
-		<div className="relative min-h-[440px] lg:min-h-[520px]">
+		<div className="relative hidden min-h-[440px] lg:block lg:min-h-[520px]">
 			<div className="absolute left-[7%] top-[7%] h-[72%] w-[80%] rounded-[40px] border border-dashed border-[var(--line)]" />
 			<div className="glass-strong absolute right-0 top-8 w-full max-w-[620px] overflow-hidden rounded-2xl">
 				<div className="flex h-14 items-center justify-between border-b border-[var(--line)] bg-[linear-gradient(90deg,rgba(45,11,116,.92),rgba(100,40,234,.86))] px-5 text-white">
