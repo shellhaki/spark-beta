@@ -2,9 +2,9 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
 const variants = {
-	default: "bg-[var(--violet)] text-white shadow-[0_14px_30px_rgba(95,46,234,.22)] hover:bg-[var(--violet-2)]",
-	secondary: "border border-[var(--line)] bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--surface-strong)]",
-	ghost: "text-[var(--muted)] hover:bg-[var(--wash)] hover:text-[var(--ink)]"
+	default: "bg-[var(--ink)] text-[var(--bg)] hover:opacity-90",
+	secondary: "border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)] hover:bg-[var(--panel-strong)]",
+	ghost: "text-[var(--muted)] hover:bg-[var(--accent-soft)] hover:text-[var(--ink)]"
 };
 
 export function Button({ className, variant = "default", asChild = false, ...props }) {
@@ -12,7 +12,7 @@ export function Button({ className, variant = "default", asChild = false, ...pro
 	return (
 		<Comp
 			className={cn(
-				"inline-flex h-12 items-center justify-center gap-2 rounded-xl px-5 text-sm font-semibold transition duration-200 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-violet-200 disabled:pointer-events-none disabled:opacity-60",
+				"inline-flex h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-semibold transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] disabled:pointer-events-none disabled:opacity-55",
 				variants[variant],
 				className
 			)}
