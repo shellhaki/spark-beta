@@ -20,6 +20,7 @@ type Config struct {
 	Allowed     []string
 	Slots       int
 	AdminKey    string
+	NotifyEmail string
 }
 
 var App Config
@@ -35,6 +36,7 @@ func LoadConfig() (Config, error) {
 		Allowed:     csv(os.Getenv("ALLOWED_ORIGINS")),
 		Slots:       envInt("BETA_SLOTS", 10),
 		AdminKey:    strings.TrimSpace(os.Getenv("BETA_ADMIN_KEY")),
+		NotifyEmail: env("BETA_NOTIFY_EMAIL", "maxwellexcel2@gmail.com"),
 	}
 	if cfg.DatabaseURL == "" {
 		return cfg, errors.New("CSTRING is required")

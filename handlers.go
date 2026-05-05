@@ -68,6 +68,9 @@ func SignupHandler(db *sql.DB, cfg Config) gin.HandlerFunc {
 			if err := SendWelcomeEmail(cfg, t); err != nil {
 				log.Printf("beta welcome email failed for %s: %v", t.Email, err)
 			}
+			if err := SendAdminSignupEmail(cfg, t); err != nil {
+				log.Printf("beta admin notification failed for %s: %v", t.Email, err)
+			}
 		}(tester)
 		slots, err := GetSlots(c.Request.Context(), db, cfg.Slots)
 		if err != nil {

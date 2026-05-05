@@ -105,9 +105,22 @@ func SendWelcomeEmail(cfg Config, tester BetaTester) error {
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", cfg.SMTPEmail)
 	msg.SetHeader("To", tester.Email)
-	msg.SetHeader("Subject", "You're on the SparkDB beta list")
+	msg.SetHeader("Subject", "You are on the SparkDB beta list")
 	msg.SetBody("text/plain", welcomeText(tester))
 	msg.AddAlternative("text/html", welcomeHTML(tester))
+	return gomail.NewDialer("smtp.gmail.com", 587, cfg.SMTPEmail, cfg.SMTPPass).DialAndSend(msg)
+}
+
+func SendAdminSignupEmail(cfg Config, tester BetaTester) error {
+	if cfg.NotifyEmail == "" {
+		return nil
+	}
+	msg := gomail.NewMessage()
+	msg.SetHeader("From", cfg.SMTPEmail)
+	msg.SetHeader("To", cfg.NotifyEmail)
+	msg.SetHeader("Subject", "New SparkDB beta signup")
+	msg.SetBody("text/plain", adminSignupText(tester))
+	msg.AddAlternative("text/html", adminSignupHTML(tester))
 	return gomail.NewDialer("smtp.gmail.com", 587, cfg.SMTPEmail, cfg.SMTPPass).DialAndSend(msg)
 }
 
@@ -125,7 +138,7 @@ func welcomeText(t BetaTester) string {
 	if name == "" {
 		name = "there"
 	}
-	return fmt.Sprintf("Hi %s,\n\nYou're on the SparkDB beta programme. We'll communicate the beta date and next steps soon.\n\nSparkDB", name)
+	return fmt.Sprintf("Hi %s,\n\nYou are on the SparkDB beta list.\n\nWe will send the beta date and next steps soon.\n\nSparkDB", name)
 }
 
 func welcomeHTML(t BetaTester) string {
@@ -133,7 +146,15 @@ func welcomeHTML(t BetaTester) string {
 	if name == "" {
 		name = "there"
 	}
-	return fmt.Sprintf(`<!doctype html><html><body style="margin:0;background:#09070f;color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"><table role="presentation" width="100%%" cellspacing="0" cellpadding="0" style="background:#09070f;padding:32px 16px;"><tr><td align="center"><table role="presentation" width="100%%" cellspacing="0" cellpadding="0" style="max-width:560px;background:linear-gradient(145deg,#120d1d,#0b0812);border:1px solid rgba(168,85,247,.28);border-radius:24px;overflow:hidden;"><tr><td style="padding:32px;"><div style="display:inline-flex;align-items:center;gap:10px;background:rgba(139,92,246,.14);border:1px solid rgba(168,85,247,.32);padding:10px 14px;border-radius:999px;color:#c4b5fd;font-size:14px;font-weight:700;">SparkDB Beta</div><h1 style="margin:28px 0 12px;font-size:34px;line-height:1.08;letter-spacing:-.02em;">You're in, %s.</h1><p style="margin:0;color:#cbd5e1;font-size:17px;line-height:1.65;">Welcome to the SparkDB beta programme. Your spot has been saved, and we'll communicate the beta date and next steps soon.</p><div style="margin-top:28px;padding:18px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);"><p style="margin:0;color:#a78bfa;font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;">Registered email</p><p style="margin:8px 0 0;color:#ffffff;font-size:16px;">%s</p></div><p style="margin:28px 0 0;color:#94a3b8;font-size:14px;line-height:1.6;">Thanks for helping shape SparkDB early. We’re building this with beta testers close to the product.</p></td></tr></table></td></tr></table></body></html>`, name, html.EscapeString(t.Email))
+	return fmt.Sprintf(`<!doctype html><html><body style="margin:0;background:#f7f7f4;color:#111;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;"><table role="presentation" width="100%%" cellspacing="0" cellpadding="0" style="padding:28px 14px;"><tr><td align="center"><table role="presentation" width="100%%" cellspacing="0" cellpadding="0" style="max-width:520px;background:#fffffc;border:1px solid #deded7;border-radius:10px;"><tr><td style="padding:28px;"><p style="margin:0 0 18px;color:#777;font-size:12px;letter-spacing:.12em;text-transform:uppercase;">SparkDB beta</p><h1 style="margin:0 0 14px;font-size:24px;line-height:1.25;font-weight:700;">You are on the beta list, %s.</h1><p style="margin:0;color:#555;font-size:14px;line-height:1.7;">We will send the beta date and next steps soon.</p><p style="margin:22px 0 0;color:#777;font-size:13px;">%s</p></td></tr></table></td></tr></table></body></html>`, name, html.EscapeString(t.Email))
+}
+
+func adminSignupText(t BetaTester) string {
+	return fmt.Sprintf("New SparkDB beta signup\n\nName: %s\nEmail: %s\nRole: %s\nCreated: %s", t.FullName, t.Email, t.Profession, t.CreatedAt.Format(time.RFC3339))
+}
+
+func adminSignupHTML(t BetaTester) string {
+	return fmt.Sprintf(`<!doctype html><html><body style="margin:0;background:#f7f7f4;color:#111;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;"><table role="presentation" width="100%%" cellspacing="0" cellpadding="0" style="padding:28px 14px;"><tr><td align="center"><table role="presentation" width="100%%" cellspacing="0" cellpadding="0" style="max-width:520px;background:#fffffc;border:1px solid #deded7;border-radius:10px;"><tr><td style="padding:28px;"><p style="margin:0 0 18px;color:#777;font-size:12px;letter-spacing:.12em;text-transform:uppercase;">New beta signup</p><h1 style="margin:0 0 18px;font-size:22px;line-height:1.25;">%s</h1><p style="margin:0 0 8px;color:#555;font-size:14px;">Email: %s</p><p style="margin:0 0 8px;color:#555;font-size:14px;">Role: %s</p><p style="margin:0;color:#777;font-size:13px;">Created: %s</p></td></tr></table></td></tr></table></body></html>`, html.EscapeString(t.FullName), html.EscapeString(t.Email), html.EscapeString(t.Profession), html.EscapeString(t.CreatedAt.Format(time.RFC3339)))
 }
 
 func timeoutContext(parent context.Context, seconds int) (context.Context, context.CancelFunc) {
